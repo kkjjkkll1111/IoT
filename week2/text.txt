@@ -1,1 +1,121 @@
+2주차 내용
 
+실습 
+아두이노 LED, 초음파
+
+코드
+LED 1개 작동(7번 기준) : 
+void setup()
+{
+  pinMode(7, OUTPUT);
+}
+void loop()
+{
+  digitalWrite(7, HIGH); //LED ON
+  delay(1000); // Wait for 1000 millisecond(s)
+  digitalWrite(7, LOW); //LED OFF
+  delay(1000); // Wait for 1000 millisecond(s)
+}
+
+LED 2개 작동(7, 8번 기준) :
+void setup()
+{
+  pinMode(7, OUTPUT);
+  pinMode(8, OUTPUT);
+}
+
+void loop()
+{
+  digitalWrite(7, HIGH); //LED ON
+  delay(1000); // Wait for 1000 millisecond(s)
+  digitalWrite(7, LOW); //LED OFF
+  delay(1000); // Wait for 1000 millisecond(s)
+  digitalWrite(8, HIGH); //LED ON
+  delay(1000); // Wait for 1000 millisecond(s)
+  digitalWrite(8, LOW); //LED OFF
+  delay(1000); // Wait for 1000 millisecond(s)
+}
+
+초음파 작동
+#define TRIG 13
+#define ECHO 12
+
+int led_g = 8;
+int led_r = 7;
+void setup()
+{
+  Serial.begin(9600);
+  pinMode(led_r, OUTPUT);
+  pinMode(led_g, OUTPUT);
+  pinMode(TRIG, OUTPUT);
+  pinMode(ECHO, INPUT);
+}
+
+void loop()
+{
+  long duration, distance;
+  
+  digitalWrite(TRIG, LOW);
+  delayMicroseconds(2); //delay for 2 microsecond(s)
+  digitalWrite(TRIG, HIGH);
+  delayMicroseconds(10); //delay for 10 microsecond(s)
+  digitalWrite(TRIG, LOW);
+  
+  duration = pulseIn(ECHO, HIGH);
+  
+  distance = duration / 58.2;
+  Serial.println(duration );
+  Serial.print("\nDIstance : " );
+  Serial.print(distance);
+  Serial.println(" CM");
+  
+  delay(1000);
+}
+
+초음파로 측정한 거리로 100이상이면 빨간색 LED가 켜지고, 그 이외에는 초록색 LED가 켜지는 코드(초록 : 8, 빨강 : 9, 트리거 : 13, 에코 : 12)
+
+#define TRIG 13
+#define ECHO 12
+int led_g = 8;
+int led_r = 7;
+void setup()
+{
+  Serial.begin(9600);
+  pinMode(led_r, OUTPUT);
+  pinMode(led_g, OUTPUT);
+  pinMode(TRIG, OUTPUT);
+  pinMode(ECHO, INPUT);
+}
+
+void loop()
+{
+  long duration, distance;
+
+  //측정
+  digitalWrite(TRIG, LOW);
+  delayMicroseconds(2);
+  digitalWrite(TRIG, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(TRIG, LOW);
+  
+  duration = pulseIn(ECHO, HIGH);
+  
+  distance = duration / 58.2; //거리계산
+
+
+  if(distance >= 100){ //거리가 100CM이상이면 빨간LED ON, 초록LED OFF
+    digitalWrite(led_r, HIGH);
+    digitalWrite(led_g, LOW);
+  } else{            //그 이외에는 빨간LED OFF, 초로LED ON
+    digitalWrite(led_r, LOW);
+    digitalWrite(led_g, HIGH);
+  }
+
+  //시간, 거리출력
+  Serial.println(duration );
+  Serial.print("\nDIstance : " );
+  Serial.print(distance);
+  Serial.println(" CM");
+  
+  delay(1000);
+}
