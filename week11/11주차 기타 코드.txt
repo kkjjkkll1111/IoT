@@ -1,0 +1,6 @@
+내가 원하는 메소드 추가
+application.add_handler(CommandHandler("Message", method))
+
+
+telegram bot 불러오기
+git clone https://github.com/python-telegram-bot/python-telegram-bot
