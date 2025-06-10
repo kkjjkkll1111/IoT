@@ -8,7 +8,7 @@ sudo apt-get install emacs gperf bison flex git build-essential automake avarice
 ## 사전 설정
   - 1
 ```
-$ vim ~/tinyos.env
+$ vim ~/tinyos.env //파일이름
 
 export TOSROOT=/opt/tinyos-2.x
 export TOSDIR=$TOSROOT/tos
@@ -28,7 +28,7 @@ $ vim ~/.bashrc
 ```
   - 3 실행
 ```
-$ source ~/.bashrc
+$ source ~/.bashrc //환경설정하는 파일
 ```
 ### JNI 파일 복사
 ```
